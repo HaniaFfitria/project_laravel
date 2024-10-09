@@ -9,9 +9,5 @@ class post extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'nim',
-        'nama_mahasiswa',
-        'foto_mahasiswa',
-    ];
+    protected $guarded;
 }
