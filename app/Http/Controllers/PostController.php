@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -39,5 +40,52 @@ class PostController extends Controller
         //redirect to index
         return redirect()->route('posts.index')->with(['success' => 'Data Berhasil
 Disimpan!']);
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+    public function update(Request $request, Post $post)
+    {
+        //validate form
+        $request->validate([
+            'foto_mahasiswa' =>
+            'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nim' => 'required|min:5',
+            'nama_mahasiswa' => 'required|min:5'
+        ]);
+        //check if image is uploaded
+        if ($request->hasFile('foto_mahasiswa')) {
+            //upload new image
+            $image = $request->file('foto_mahasiswa');
+            $image->storeAs('public/posts', $image->hashName());
+            //delete old image
+            Storage::delete('public/posts/' . $post->image);
+            //update post with new image
+            $post->update([
+                'foto_mahasiswa' => $image->hashName(),
+                'nim' => $request->nim,
+                'nama_mahasiswa' => $request->nama_mahasiswa
+            ]);
+        } else {
+            //update post without image
+            $post->update([
+                'nim' => $request->nim,
+                'nama_mahasiswa' => $request->nama_mahasiswa
+            ]);
+        }
+        //redirect to index
+        return redirect()->route('posts.index')->with(['success' => 'DataBerhasil Diubah!']);
+    }
+
+    public function destroy(Post $post)
+    {
+        //delete image
+        Storage::delete('public/posts/' . $post->image);
+        //delete post
+        $post->delete();
+        //redirect to index
+        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

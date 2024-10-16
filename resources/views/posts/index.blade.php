@@ -15,7 +15,7 @@
     <title>Database | Latihan</title>
 </head>
 
-<body style="">
+<body style="background: rgb(41, 40, 40)">
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -38,7 +38,7 @@
                                 @forelse ($posts as $post)
                                 <tr>
                                     <td class="text-center">
-                                        <img src="{{asset('storage/public/posts/'. $post->foto_mahasiswa) }}" class="rounded" style="width: 150px">
+                                        <img src="{{asset('storage/public/posts/'. $post->foto_mahasiswa) }}" class="rounded-circle" style="width: 80px; height:85px">
                                     </td>
                                     <td>{{ $post->nim }}</td>
                                     <td>{{ $post->nama_mahasiswa }}</td>
@@ -73,7 +73,8 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
 </body>
 
 </html>
