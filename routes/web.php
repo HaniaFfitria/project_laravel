@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
-//route resource
+// Route resource
 Route::resource('/posts', \App\Http\Controllers\PostController::class);
 
-
+// Autentikasi routes
 Auth::routes();
 
+// Route untuk home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
